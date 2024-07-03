@@ -122,10 +122,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'shopping/static/')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
-AUTHENTICATION_BACKENDS = (
-    'social_core.backends.google.GoogleOAuth2',
+AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-)
+    'social_core.backends.google.GoogleOAuth2',
+]
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '216694800477-koaq8pqlbjmlc32vj83jusrpjbt0pb19.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'

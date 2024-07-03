@@ -4,6 +4,7 @@ from shopping.views.views import home_page, detail_page, about_page, add_product
 from shopping.views.auth import login_page, logout_page, logout_view, sign_up
 
 urlpatterns = [
+    path('accounts/profile/', home_page, name='index'),
     path('', home_page, name='index'),
     path('category/<str:en_slug>/', home_page, name='category'),
     path('add_comment/<slug:en_slug>', add_comment, name='add_comment'),
