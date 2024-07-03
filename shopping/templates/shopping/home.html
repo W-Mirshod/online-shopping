@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <img width="50" height="50" src="https://th.bing.com/th/id/R.458c0a3de30aa948876b907b7a61ef61?rik=8m65YWl1WGU1LQ&pid=ImgRaw&r=0">
+            <a class="navbar-brand" href="{% url 'index' %}">Branded Platform</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page"
+                                            href="{% url 'index' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'index' %}">All Products</a></li>
+                            <li>
+                                <hr class="dropdown-divider"/>
+                            </li>
+                            {% for category in categories %}
+                                <li><a class="dropdown-item"
+                                       href="{% url 'category' category.slug %}">{{ category.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+                {% if user.is_authenticated %}
+                    <form type="POST" action="http://127.0.0.1:8000/add_product">
+                        {% csrf_token %}
+                        <button style="color: #0c4128; background-color: #3dd5f3; padding: 2px; border: 2px solid #333; text-decoration: none"
+                                name="add_product" value="1">Adding Product
+                        </button>
+                    </form>
+                    <pre> </pre>
+                    <form type="get" action="http://127.0.0.1:8000/">
+                        <button style="color: #0c4128; background-color: #3dd5f3; padding: 2px; border: 2px solid #333; text-decoration: none"
+                                name="unlock_all" value="1">Make All Products Available
+                        </button>
+                    </form>
+                {% else %}
+                    <form type="get" action="http://127.0.0.1:8000/login/">
+                        <button style="color: #0c4128; background-color: #3dd5f3; padding: 2px; border: 2px solid #333; text-decoration: none"
+                                name="login">Login
+                        </button>
+                    </form>
+
+                {% endif %}
+                <pre> </pre>
+
+                <form class="d-flex" method="get">
+                    <input type="text" class="form-contro" name="searching">
+                    <button class="btn btn-outline-dark" type="submit">
+                        <i class="bi-search-fill me-1"></i>
+                        Search
+
+                    </button>
+                </form>
+
+                {% if user.is_authenticated %}
+                    <pre> </pre>
+                    <form action="http://127.0.0.1:8000/logout/">
+                        <button style="color: #3dd5f3; background-color: #a52834; padding: 2px; border: 2px solid #333; text-decoration: none"
+                                name="logout">Log Out
+                        </button>
+                    </form>
+                {% else %}
+                    <pre> </pre>
+                    <form type="get" action="http://127.0.0.1:8000/register/">
+                        <button style="color: #0c4128; background-color: #3dd5f3; padding: 2px; border: 2px solid #333; text-decoration: none"
+                                name="register">Register
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Online Shopping</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Welcome to our Online Shopping Platform</p>
+            </div>
+        </div>
+    </header>
+    <!-- Section-->
+    <div class="container mt-5">
+        <div class="text-left">
+            <h3>Filter by</h3>
+        </div>
+        <div class="row">
+            <div class="col-1">
+                <a class="btn btn-outline-dark mt-auto" href="?expensive=true">Expensive</a>
+            </div>
+
+            <div class="col-1">
+                <a class="btn btn-outline-dark mt-auto" href="?cheap=true">Cheap</a>
+            </div>
+        </div>
+    </div>
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                {% for product in products %}
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Sale badge-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+                                Sale
+                            </div>
+
+                            <!-- Product image-->
+                        {% if product.image %}
+                            <img class="card-img-top" src="{{ product.image.url }}" alt="..."/>
+                        {% endif %}
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{ product.name }}</h5>
+                                    <!-- Product name-->
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        {% if product.rating == 1 %}
+                                            <div class="bi-star-fill"></div>
+                                        {% elif product.rating == 2 %}
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                        {% elif product.rating == 3 %}
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                        {% elif product.rating == 4 %}
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                        {% elif product.rating == 5 %}
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                        {% endif %}</div>
+                                    <!-- Product price-->
+                                    {% if product.discount %}
+                                        <span class="text-muted text-decoration-line-through">${{ product.price }}</span>
+                                        ${{ product.discounted_price }}
+                                    {% else %}
+                                        ${{ product.price }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                                            href="{% url 'details' product.slug %}">View
+                                    product</a></div>
+                                <br>
+                                {% if user.is_authenticated %}
+                                <form type="GET" action="">
+                                    <button style="color: #0c4128; background-color: #3dd5f3; padding: 2px; border: 2px solid #333; text-decoration: none"
+                                            name="hide" value="{{ product.slug }}">Hide
+                                    </button>
+                                    <button style="color: #0c4128; background-color: #3dd5f3; padding: 2px; border: 2px solid #333; text-decoration: none"
+                                            name="update" value="{{ product.slug }}">Update
+                                    </button>
+                                    <button style="color: #3dd5f3; background-color: #a41515; padding: 2px; border: 2px solid #333; text-decoration: none"
+                                            name="delete" value="{{ product.slug }}"> Delete
+                                    </button>
+                                {% endif %}    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

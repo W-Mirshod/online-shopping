@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Online Shopping</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Welcome To our Online Shopping Platform</p>
+            </div>
+        </div>
+    </header>
+    <!-- Section-->
+    <div class="container mt-5">
+        <div class="text-left">
+            <h3>Filter by</h3>
+        </div>
+        <div class="row">
+            <div class="col-1">
+                <a class="btn btn-outline-dark mt-auto" href="?expensive=true">> Expensive </a>
+            </div>
+
+            <div class="col-1">
+                <a class="btn btn-outline-dark mt-auto" href="?cheap=true">> Cheap </a>
+            </div>
+        </div>
+    </div>
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                {% for product in products %}
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Sale badge-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+                                Sale
+                            </div>
+                            <!-- Product image-->
+                            {% if product.image %}
+                                <img class="card-img-top" src="{{ product.image.url }}" alt="..."/>
+                            {% endif %}
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{ product.name }}</h5>
+                                    <!-- Product name-->
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        {% if product.rating == 1 %}
+                                            <div class="bi-star-fill"></div>
+                                        {% elif product.rating == 2 %}
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                        {% elif product.rating == 3 %}
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                        {% elif product.rating == 4 %}
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                        {% elif product.rating == 5 %}
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                        {% endif %}</div>
+                                    <!-- Product price-->
+                                    {% if product.discount %}
+                                        <span class="text-muted text-decoration-line-through">${{ product.price }}</span>
+                                        ${{ product.discounted_price }}
+                                    {% else %}
+                                        ${{ product.price }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                                            href="{% url 'details' product.slug %}">View
+                                    product</a></div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
