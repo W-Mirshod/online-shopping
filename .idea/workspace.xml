@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28707e89-d38b-41f9-a7ed-9c5f1fedbb09" name="Changes" comment="" />
+    <list default="true" id="28707e89-d38b-41f9-a7ed-9c5f1fedbb09" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NEWS/django.docx" beforeDir="false" afterPath="$PROJECT_DIR$/NEWS/django.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/root/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/root/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/root/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/root/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shopping/templates/authentication/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/shopping/templates/authentication/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shopping/views/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/shopping/views/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -124,6 +131,7 @@
       <workItem from="1720022744465" duration="6794000" />
       <workItem from="1720040720925" duration="760000" />
       <workItem from="1720064569727" duration="725000" />
+      <workItem from="1720097266214" duration="5081000" />
     </task>
     <servers />
   </component>

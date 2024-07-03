@@ -102,6 +102,7 @@ class Comment(BaseModel):
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(unique=True, max_length=50)
     birth_of_date = models.DateField(null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
