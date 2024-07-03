@@ -19,12 +19,12 @@ def home_page(request, en_slug=None):
 
     products = Product.objects.filter(Q(is_available=True)).exclude(Q(quantity=0))
     categories = Category.objects.all()
+    print(search)
+    if en_slug:
+        products = Product.objects.filter(Q(category__slug=en_slug) & Q(is_available=True)).exclude(Q(quantity=0))
 
     if search:
         products = Product.objects.filter(Q(name__icontains=search) & Q(is_available=True)).exclude(Q(quantity=0))
-
-    if en_slug:
-        products = Product.objects.filter(Q(category__slug=en_slug) & Q(is_available=True)).exclude(Q(quantity=0))
 
     if hide_slug:
         product = Product.objects.get(slug=hide_slug)
