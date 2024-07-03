@@ -97,7 +97,7 @@
                   <div class="divider-content-center">or register with</div>
                 </div>
                 <div class="row g-2 mt-2">
-                  <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="https://accounts.google.com/v3/signin/identifier?authuser=0&continue=https%3A%2F%2Fwww.google.com%2F&ec=GAlAmgQ&hl=en&flowName=GlifWebSignIn&flowEntry=AddSession&dsh=S1980077754%3A1720070587826879&ddm=0"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> Google</a></div>
+                  <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="{% url 'social:begin' 'google-oauth2' %}"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> Google</a></div>
                   <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="https://www.facebook.com/"><span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> Facebook</a></div>
                 </div>
               </div>
