@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -14,12 +15,19 @@ def home_page(request, en_slug=None):
     hide_slug = request.GET.get('hide')
     update_slug = request.GET.get('update')
     delete_slug = request.GET.get('delete')
-
     unlock_all = request.GET.get('unlock_all')
+    page_number = request.GET.get('page_num')
 
-    products = Product.objects.filter(Q(is_available=True)).exclude(Q(quantity=0))
     categories = Category.objects.all()
-    print(search)
+    products = Product.objects.filter(Q(is_available=True)).exclude(Q(quantity=0))
+    paginator = Paginator(products, 2)
+    try:
+        products = paginator.page(page_number)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+
     if en_slug:
         products = Product.objects.filter(Q(category__slug=en_slug) & Q(is_available=True)).exclude(Q(quantity=0))
 
@@ -54,13 +62,15 @@ def home_page(request, en_slug=None):
         products = products.order_by('price')[:2]
 
     context = {'products': products,
-               'categories': categories}
+               'categories': categories,
+               'page_range': products, }
     return render(request, 'shopping/home.html', context)
 
 
 def detail_page(request, en_slug):
     product = get_object_or_404(Product, slug=en_slug)
-    related_products = Product.objects.filter(Q(category=product.category) & Q(is_available=True)).exclude(slug=en_slug)
+    related_products = Product.objects.filter(Q(category=product.category) & Q(is_available=True)).exclude(
+        Q(slug=en_slug) | Q(quantity=0))
     product_comments = Comment.objects.filter(Q(product=product) & Q(is_accessible=True))
     categories = Category.objects.all()
 

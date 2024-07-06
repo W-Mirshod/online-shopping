@@ -3,7 +3,8 @@
 {% block content %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
-            <img width="50" height="50" src="https://th.bing.com/th/id/R.458c0a3de30aa948876b907b7a61ef61?rik=8m65YWl1WGU1LQ&pid=ImgRaw&r=0">
+            <img width="50" height="50"
+                 src="https://th.bing.com/th/id/R.458c0a3de30aa948876b907b7a61ef61?rik=8m65YWl1WGU1LQ&pid=ImgRaw&r=0">
             <a class="navbar-brand" href="{% url 'index' %}">Branded Platform</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent"
@@ -116,9 +117,9 @@
                             </div>
 
                             <!-- Product image-->
-                        {% if product.image %}
-                            <img class="card-img-top" src="{{ product.image.url }}" alt="..."/>
-                        {% endif %}
+                            {% if product.image %}
+                                <img class="card-img-top" src="{{ product.image.url }}" alt="..."/>
+                            {% endif %}
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
@@ -163,7 +164,7 @@
                                     product</a></div>
                                 <br>
                                 {% if user.is_authenticated %}
-                                <form type="GET" action="">
+                                    <form type="GET" action="">
                                     <button style="color: #0c4128; background-color: #3dd5f3; padding: 2px; border: 2px solid #333; text-decoration: none"
                                             name="hide" value="{{ product.slug }}">Hide
                                     </button>
@@ -173,12 +174,30 @@
                                     <button style="color: #3dd5f3; background-color: #a41515; padding: 2px; border: 2px solid #333; text-decoration: none"
                                             name="delete" value="{{ product.slug }}"> Delete
                                     </button>
-                                {% endif %}    
+                                {% endif %}
                                 </form>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
+
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_range.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ page_range.previous_page_number }}">previous</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ page_range.number }} of {{ page_range.paginator.num_pages }}.
+                        </span>
+
+                        {% if page_range.has_next %}
+                            <a href="?page={{ page_range.next_page_number }}">next</a>
+                            <a href="?page={{ page_range.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
 
             </div>
         </div>
