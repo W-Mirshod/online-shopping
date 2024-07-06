@@ -16,17 +16,11 @@ def home_page(request, en_slug=None):
     update_slug = request.GET.get('update')
     delete_slug = request.GET.get('delete')
     unlock_all = request.GET.get('unlock_all')
-    page_number = request.GET.get('page_num')
+    page_number = request.GET.get('page', 1)
 
     categories = Category.objects.all()
     products = Product.objects.filter(Q(is_available=True)).exclude(Q(quantity=0))
     paginator = Paginator(products, 2)
-    try:
-        products = paginator.page(page_number)
-    except PageNotAnInteger:
-        products = paginator.page(1)
-    except EmptyPage:
-        products = paginator.page(paginator.num_pages)
 
     if en_slug:
         products = Product.objects.filter(Q(category__slug=en_slug) & Q(is_available=True)).exclude(Q(quantity=0))
@@ -61,9 +55,15 @@ def home_page(request, en_slug=None):
     elif filter_cheap:
         products = products.order_by('price')[:2]
 
+    try:
+        products = paginator.page(page_number)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+
     context = {'products': products,
-               'categories': categories,
-               'page_range': products, }
+               'categories': categories}
     return render(request, 'shopping/home.html', context)
 
 

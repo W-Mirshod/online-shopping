@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28707e89-d38b-41f9-a7ed-9c5f1fedbb09" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/NEWS/photo_2024-06-29_03-58-48 (2).jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/NEWS/photo_2024-06-29_03-58-48.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -54,6 +55,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "django.template.preview.state": "SHOW_EDITOR",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "E:/Python_Projects/HomeWork/07_Month/01_Lesson",
@@ -142,7 +144,7 @@
       <workItem from="1720097266214" duration="6835000" />
       <workItem from="1720115601948" duration="1115000" />
       <workItem from="1720254707634" duration="746000" />
-      <workItem from="1720273107358" duration="7046000" />
+      <workItem from="1720273107358" duration="11539000" />
     </task>
     <servers />
   </component>
